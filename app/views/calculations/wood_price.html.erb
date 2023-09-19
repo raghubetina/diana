@@ -1,0 +1,47 @@
+<h1>Wood Price Calculator</h1>
+
+<% if @wood_price_calculator.errors.any? %>
+  <% @wood_price_calculator.errors.full_messages.each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+<% end %>
+
+<%= form_with model: @wood_price_calculator,
+      url: root_path,
+      method: :get do |form| %>
+  <div>
+    <%= form.label :height, "Height (mm)" %>
+    <%= form.number_field :height %>
+  </div>
+
+  <div>
+    <%= form.label :length, "Length (mm)" %>
+    <%= form.number_field :length %>
+  </div>
+
+  <div>
+    <%= form.label :width, "Width (mm)" %>
+    <%= form.number_field :width %>
+  </div>
+
+  <div>
+    <%= form.label :price_per_sai %>
+    <%= form.number_field :price_per_sai %>
+  </div>
+
+  <div>
+    <%= form.submit "Calculate" %>
+  </div>
+<% end %>
+
+<% if @wood_price_calculator.valid? %>
+  <dl>
+    <dt>Volume (sai)</dt>
+    <dd><%= number_with_delimiter(@wood_price_calculator.volume_in_sai) %></dd>
+
+    <dt>Total price</dt>
+    <dd><%= number_with_delimiter(@wood_price_calculator.total_price, precision: 0) %></dd>
+  </dl>
+<% end %>
+
+<%= link_to "Clear", root_path %>
