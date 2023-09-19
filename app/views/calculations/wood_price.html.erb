@@ -1,6 +1,6 @@
 <div class="row mb-3">
   <div class="offset-md-4 col-md-4">
-    <h1 class="text-center mb-5">
+    <h1 class="h5 text-center mb-5">
       Wood Price Calculator
     </h1>
 
@@ -17,7 +17,7 @@
           method: :get do |form| %>
       <div class="mb-3">
         <%= form.label :height, "Height (mm)", class: "form-label" %>
-        <%= form.number_field :height, class: "form-control" %>
+        <%= form.number_field :height, class: "form-control", autofocus: true %>
       </div>
 
       <div class="mb-3">
@@ -30,7 +30,7 @@
         <%= form.number_field :width, class: "form-control" %>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-4">
         <%= form.label :price_per_sai, class: "form-label" %>
         <%= form.number_field :price_per_sai, class: "form-control" %>
       </div>

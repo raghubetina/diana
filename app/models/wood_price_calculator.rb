@@ -1,5 +1,5 @@
 class WoodPriceCalculator
-  SAI_PER_MM_CUBED = 3_400_000
+  SAI_PER_MM_CUBED = 3_340_000
 
   include ActiveModel::Model
 
@@ -23,10 +23,10 @@ class WoodPriceCalculator
     width: nil,
     price_per_sai: nil)
 
-    @height = height.to_i
-    @length = length.to_i
-    @width = width.to_i
-    @price_per_sai = price_per_sai.to_i
+    @height = height ? height.to_i : height
+    @length = length ? length.to_i : length
+    @width = width ? width.to_i : width
+    @price_per_sai = price_per_sai ? price_per_sai.to_i : price_per_sai
   end
 
   def volume_in_mm_cubed
