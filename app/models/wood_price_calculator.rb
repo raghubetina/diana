@@ -34,10 +34,10 @@ class WoodPriceCalculator
   end
 
   def volume_in_sai
-    @_volume_in_sai || volume_in_mm_cubed / SAI_PER_MM_CUBED
+    @_volume_in_sai || volume_in_mm_cubed.to_f / SAI_PER_MM_CUBED
   end
 
   def total_price
-    @_total_price ||= volume_in_sai / price_per_sai
+    @_total_price ||= volume_in_sai * price_per_sai
   end
 end

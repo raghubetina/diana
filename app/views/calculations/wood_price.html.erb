@@ -1,47 +1,61 @@
-<h1>Wood Price Calculator</h1>
+<div class="row mb-3">
+  <div class="offset-md-4 col-md-4">
+    <h1 class="text-center mb-5">
+      Wood Price Calculator
+    </h1>
 
-<% if @wood_price_calculator.errors.any? %>
-  <% @wood_price_calculator.errors.full_messages.each do |message| %>
-    <div><%= message %></div>
-  <% end %>
-<% end %>
+    <% if @wood_price_calculator.errors.any? %>
+      <% @wood_price_calculator.errors.full_messages.each do |message| %>
+        <div class="alert alert-warning">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
 
-<%= form_with model: @wood_price_calculator,
-      url: root_path,
-      method: :get do |form| %>
-  <div>
-    <%= form.label :height, "Height (mm)" %>
-    <%= form.number_field :height %>
+    <%= form_with model: @wood_price_calculator,
+          url: root_path,
+          method: :get do |form| %>
+      <div class="mb-3">
+        <%= form.label :height, "Height (mm)", class: "form-label" %>
+        <%= form.number_field :height, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :length, "Length (mm)", class: "form-label" %>
+        <%= form.number_field :length, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :width, "Width (mm)", class: "form-label" %>
+        <%= form.number_field :width, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :price_per_sai, class: "form-label" %>
+        <%= form.number_field :price_per_sai, class: "form-control" %>
+      </div>
+
+      <div class="d-grid">
+        <%= form.submit "Calculate", class: "btn btn-success" %>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <div>
-    <%= form.label :length, "Length (mm)" %>
-    <%= form.number_field :length %>
+<div class="row mb-3">
+  <div class="offset-md-4 col-md-4">
+    <% if @wood_price_calculator.valid? %>
+      <dl>
+        <dt>Volume (sai)</dt>
+        <dd><%= number_with_precision(@wood_price_calculator.volume_in_sai, precision: 2, delimiter: ",") %></dd>
+
+        <dt>Total price</dt>
+        <dd><%= number_with_precision(@wood_price_calculator.total_price, precision: 0, delimiter: ",") %></dd>
+      </dl>
+
+      <div class="d-grid">
+        <%= link_to "Clear", root_path, class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :width, "Width (mm)" %>
-    <%= form.number_field :width %>
-  </div>
-
-  <div>
-    <%= form.label :price_per_sai %>
-    <%= form.number_field :price_per_sai %>
-  </div>
-
-  <div>
-    <%= form.submit "Calculate" %>
-  </div>
-<% end %>
-
-<% if @wood_price_calculator.valid? %>
-  <dl>
-    <dt>Volume (sai)</dt>
-    <dd><%= number_with_delimiter(@wood_price_calculator.volume_in_sai) %></dd>
-
-    <dt>Total price</dt>
-    <dd><%= number_with_delimiter(@wood_price_calculator.total_price, precision: 0) %></dd>
-  </dl>
-<% end %>
-
-<%= link_to "Clear", root_path %>
+</div>
